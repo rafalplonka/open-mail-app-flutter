@@ -6,12 +6,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Open Mail App Example"),
-      ),
+      appBar: AppBar(title: Text("Open Mail App Example")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -36,9 +36,7 @@ class MyApp extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (_) {
-                      return MailAppPickerDialog(
-                        mailApps: result.options,
-                      );
+                      return MailAppPickerDialog(mailApps: result.options);
                     },
                   );
                 }
@@ -48,9 +46,7 @@ class MyApp extends StatelessWidget {
               child: Text('Open mail app, with email already composed'),
               onPressed: () async {
                 EmailContent email = EmailContent(
-                  to: [
-                    'user@domain.com',
-                  ],
+                  to: ['user@domain.com'],
                   subject: 'Hello!',
                   body: 'How are you doing?',
                   cc: ['user2@domain.com', 'user3@domain.com'],
@@ -59,17 +55,19 @@ class MyApp extends StatelessWidget {
 
                 OpenMailAppResult result =
                     await OpenMailApp.composeNewEmailInMailApp(
-                        nativePickerTitle: 'Select email app to compose',
-                        emailContent: email);
+                      nativePickerTitle: 'Select email app to compose',
+                      emailContent: email,
+                    );
                 if (!result.didOpen && !result.canOpen) {
                   showNoMailAppsDialog(context);
                 } else if (!result.didOpen && result.canOpen) {
                   showDialog(
                     context: context,
-                    builder: (_) => MailAppPickerDialog(
-                      mailApps: result.options,
-                      emailContent: email,
-                    ),
+                    builder:
+                        (_) => MailAppPickerDialog(
+                          mailApps: result.options,
+                          emailContent: email,
+                        ),
                   );
                 }
               },
@@ -88,9 +86,7 @@ class MyApp extends StatelessWidget {
                       return MailAppPickerDialog(
                         mailApps: apps,
                         emailContent: EmailContent(
-                          to: [
-                            'user@domain.com',
-                          ],
+                          to: ['user@domain.com'],
                           subject: 'Hello!',
                           body: 'How are you doing?',
                           cc: ['user2@domain.com', 'user3@domain.com'],
@@ -121,7 +117,7 @@ class MyApp extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-            )
+            ),
           ],
         );
       },
