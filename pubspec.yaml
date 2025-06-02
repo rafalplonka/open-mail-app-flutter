@@ -1,5 +1,4 @@
 name: open_mail_app
-description: This library provides the ability to query the device for installed email apps and open those apps
 version: 0.4.5
 homepage:
 
